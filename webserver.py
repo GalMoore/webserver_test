@@ -19,11 +19,16 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
         string_to_split = self.path.replace("/","")
-        array_of_words = re.split('[^a-zA-Z0-9]', string_to_split)
+        # array_of_words = re.split('[^a-zA-Z0-9]', string_to_split)
+        nums = re.findall('\d*\.?\d+',string_to_split)
+        motor_num = int(nums[0])
+        motor_position = float(nums[1])
+        speed = int(nums[2])
+        print("moving motors now with", nums)
+        # print(motor_num)
+        # print(motor_position)
 
-        print(array_of_words)
-
-        ohbot.move(int(array_of_words[1]),int(array_of_words[3]),int(array_of_words[5]))
+        ohbot.move(motor_num,motor_position,speed)
 
         #   # Send message back to client
         #   message = "Hello world!" +"\n"
